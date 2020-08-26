@@ -15,6 +15,17 @@ const UploadFiles = () => {
         setSelectedFiles(event.target.files);
     };
 
+    const getFiles = () => {
+        UploadService.getFiles()
+        .then((res) => {
+            console.log('response', res.data);
+            setFileInfos(res.data)
+        })
+        .catch((err) => {
+            console.log('Error getting files', err)
+        })
+    }
+
     const submitUpload = (event) => {
         event.preventDefault()
         let currentFile = selectedFiles[0];
@@ -23,6 +34,7 @@ const UploadFiles = () => {
         UploadService.upload(currentFile)
         .then((res) => {
             console.log('response', res)
+            getFiles()
         })
         .catch(() => {
             console.log('error', 'error uploading file')
@@ -66,14 +78,7 @@ const UploadFiles = () => {
 
     useEffect(() => {
         console.log('useEffect()', 'start');
-        UploadService.getFiles()
-        .then((res) => {
-            console.log('response', res.data);
-            setFileInfos(res.data)
-        })
-        .catch((err) => {
-            console.log('Error getting files', err)
-        })
+        getFiles()
         console.log('useEffect()', 'end');    
     }, []) 
 
