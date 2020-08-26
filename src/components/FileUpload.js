@@ -118,7 +118,7 @@ const UploadFiles = () => {
                 {
                     fileInfos && fileInfos.map((file, index) => (
                         <li className="list-group-item" key={index}>
-                        <a href={file.object_url}>{file.key}</a>
+                        <a style={{ color: '#FFF' }} href={file.object_url}>{file.key}</a>
                       </li>                        
                     ))
                 }
