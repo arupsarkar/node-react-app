@@ -82,8 +82,9 @@ const UploadFiles = () => {
         console.log('current file', currentFile);
         setProgress(0);
         setCurrentFile(currentFile);
-    
+        
         UploadService.upload(currentFile, (event) => {
+          setMessage("File upload in progress, please wait");   
           setProgress(Math.round((100 * event.loaded) / event.total));
         })
           .then((response) => {
