@@ -137,7 +137,7 @@ const insert = async (data) => {
 /* GET users listing. */
 router.get('/files', async (req, res, next) => {
     try{
-        let sql = 'select key, object_url from salesforce.files';
+        let sql = 'select file_id, key, object_url from salesforce.files order by file_id desc';
         console.log('query : ', sql)
         await pool
             .query(sql)
