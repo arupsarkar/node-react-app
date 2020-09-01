@@ -17,7 +17,7 @@ import http from './httpCommon';
 // }
 
 
-const upload = (file) => {
+const upload = (file, onUploadProgress) => {
     console.log('File upload service', '...upload started please wait')
     let formData = new FormData();
     formData.append('file', file);
@@ -28,7 +28,7 @@ const upload = (file) => {
         headers: {
             "Content-Type": "multipart/form-data",
         },
-        
+        onUploadProgress
     })
 }
 

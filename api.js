@@ -86,12 +86,22 @@ router.post('/upload', (request, response, next) => {
             const fileName = `bucketFolder/${originalFileName}`;
             console.log('file name', fileName)
           
-            const data = await uploadFile(buffer, fileName, fileExtenstion);
+            const data = await 
+            
+                uploadFile(buffer, fileName, fileExtenstion)
+                .then((res) => {
+                    console.log('uploading data:', res)
+                    insert(res)
+                })
+                .catch((err) => {
+                    console.log('error uploading data:', err)
+                })
+
             console.log('success')
-            insert(data)
+            
             return response.status(200).send(data);
         } catch (error) {
-            console.error('error')
+            console.error('error', error)
           return response.status(400).send(error);
         }
       });
@@ -114,9 +124,9 @@ router.post('/upload', (request, response, next) => {
 
 const insert = async (data) => {
     try{
-        console.log('name', data.key);
+        console.log('name', data.Key);
         console.log('url', data.Location)
-        let sql = "insert into salesforce.files(etag,key,object_url) values('" + data.etag + "','" + data.key + "','" + data.Location + "') RETURNING file_id"
+        let sql = "insert into salesforce.files(etag,key,object_url) values('" + data.ETag + "','" + data.Key + "','" + data.Location + "') RETURNING file_id"
         console.log(sql);
 
         await pool
